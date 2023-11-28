@@ -1,10 +1,7 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import {
-  FlatList,
-  Image,
   SafeAreaView,
-  StyleSheet,
   TouchableOpacity,
   View,
   useWindowDimensions,
@@ -16,11 +13,11 @@ import {
 } from "../../redux/services/userApi";
 import LoadingPageIndicator from "../../components/LoadingPageIndicator";
 import { normalizeText } from "../../utils/TextFormatters";
+import PhotosListView from "../../components/PhotosListView";
 
 const AlbumPage = () => {
   // hooks
   const { albumId, name } = useLocalSearchParams();
-  const { width: windowWidth } = useWindowDimensions();
 
   const {
     data: photos,
@@ -42,7 +39,8 @@ const AlbumPage = () => {
   // actions
   const toggleShowAllPhotos = () => setShowAll(!showAll);
 
-  if (albumLoading || albumFetching) return <LoadingPageIndicator />;
+  if (albumLoading || albumFetching || allLoading || allFetching)
+    return <LoadingPageIndicator />;
 
   return (
     <SafeAreaView>
@@ -61,31 +59,14 @@ const AlbumPage = () => {
         }}
       />
       <View>
-        <FlatList
-          data={!showAll ? photos : allPhotos}
-          renderItem={({ item }) => (
-            <Image
-              source={{ uri: item.url }}
-              style={{
-                ...styles.photoImage,
-                height: windowWidth / 3,
-                width: windowWidth / 3,
-              }}
-            />
-          )}
-          numColumns={3}
-        />
+        {showAll ? (
+          <PhotosListView photos={allPhotos || []} />
+        ) : (
+          <PhotosListView photos={photos || []} />
+        )}
       </View>
     </SafeAreaView>
   );
 };
 
 export default AlbumPage;
-
-const styles = StyleSheet.create({
-  photoImage: {
-    width: 200,
-    height: 200,
-    objectFit: "cover",
-  },
-});
