@@ -1,15 +1,31 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Album } from "../models/albumsResponse";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { router } from "expo-router";
 
 interface Props {
   album: Album;
 }
 
 const AlbumTile = ({ album }: Props) => {
+  
+  const navigateToAlbum = () => {
+    router.push({
+      pathname: "album",
+      params: {
+        name: album.title,
+        albumId: album.id,
+      },
+    });
+  };
+
   return (
     <View style={styles.albumContainer}>
-      <TouchableOpacity activeOpacity={0.5} style={styles.albumButton}>
+      <TouchableOpacity
+        onPress={navigateToAlbum}
+        activeOpacity={0.5}
+        style={styles.albumButton}
+      >
         <Text style={styles.albumText}>{album.title} </Text>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.5} style={styles.deleteButton}>

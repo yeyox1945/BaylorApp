@@ -21,12 +21,12 @@ const UserTile = ({ user }: Props) => {
     error,
   } = useGetAlbumsByUserIdQuery(user.id);
 
-  if (isLoading || isFetching)
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
+  // if (isLoading || isFetching)
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  //       <ActivityIndicator />
+  //     </View>
+  //   );
 
   if (error) return <Text> Couldn't get albums from user {user.name} </Text>;
 
@@ -35,14 +35,12 @@ const UserTile = ({ user }: Props) => {
       <Text style={styles.userText}>{user.name} </Text>
 
       <FlatList
-        style={styles.albumListContainer}
         data={albums}
         renderItem={({ item }) => <AlbumTile album={item} />}
         ItemSeparatorComponent={() => (
-          <View
-            style={{ height: 1, backgroundColor: "gray"}}
-          />
+          <View style={{ height: 1, backgroundColor: "#edebeb" }} />
         )}
+        style={styles.albumListContainer}
       />
     </View>
   );

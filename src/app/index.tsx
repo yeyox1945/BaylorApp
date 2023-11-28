@@ -8,16 +8,12 @@ import {
 } from "react-native";
 import { useGetUsersQuery } from "../redux/services/userApi";
 import UserTile from "../components/UserTile";
+import LoadingPageIndicator from "../components/LoadingPageIndicator";
 
 export default function App() {
   const { data: users, isLoading, isFetching, error } = useGetUsersQuery(null);
 
-  if (isLoading || isFetching)
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator />
-      </View>
-    );
+  if (isLoading || isFetching) return <LoadingPageIndicator />;
 
   if (error) return <Text> Couldn't get users from server </Text>;
 
@@ -28,6 +24,7 @@ export default function App() {
           data={users}
           renderItem={({ item }) => <UserTile user={item} />}
           ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+          style={styles.userListContainer}
         />
       </View>
     </SafeAreaView>
@@ -36,6 +33,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   pageContainer: {
-    padding: 10,
+    paddingHorizontal: 10,
+  },
+  userListContainer: {
+    paddingVertical: 10,
   },
 });

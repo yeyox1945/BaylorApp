@@ -12,6 +12,7 @@ export default function Layout() {
             title: "Users",
           }}
         />
+        <Stack.Screen name="album/index" />
       </Stack>
     </Provider>
   );
