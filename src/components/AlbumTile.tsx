@@ -2,13 +2,13 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Album } from "../models/albumsResponse";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
+import { normalizeText } from "../utils/TextFormatters";
 
 interface Props {
   album: Album;
 }
 
 const AlbumTile = ({ album }: Props) => {
-  
   const navigateToAlbum = () => {
     router.push({
       pathname: "album",
@@ -26,7 +26,7 @@ const AlbumTile = ({ album }: Props) => {
         activeOpacity={0.5}
         style={styles.albumButton}
       >
-        <Text style={styles.albumText}>{album.title} </Text>
+        <Text style={styles.albumText}>{normalizeText(album.title)} </Text>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={0.5} style={styles.deleteButton}>
         <Ionicons name="trash-bin-outline" color={"red"} size={20} />

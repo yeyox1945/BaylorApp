@@ -21,18 +21,12 @@ const UserTile = ({ user }: Props) => {
     error,
   } = useGetAlbumsByUserIdQuery(user.id);
 
-  // if (isLoading || isFetching)
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-  //       <ActivityIndicator />
-  //     </View>
-  //   );
-
   if (error) return <Text> Couldn't get albums from user {user.name} </Text>;
 
   return (
     <View style={styles.userContainer}>
       <Text style={styles.userText}>{user.name} </Text>
+      <Text style={{ color: "orange" }}>{user.username} </Text>
 
       <FlatList
         data={albums}
