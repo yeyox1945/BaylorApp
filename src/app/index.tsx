@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   FlatList,
   SafeAreaView,
   StyleSheet,

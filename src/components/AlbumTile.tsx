@@ -3,12 +3,16 @@ import { Album } from "../models/albumsResponse";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 import { normalizeText } from "../utils/TextFormatters";
+import { useAppDispatch } from "../redux/hooks";
+import { deleteAlbum } from "../redux/slices/deletedSlice";
 
 interface Props {
   album: Album;
 }
 
 const AlbumTile = ({ album }: Props) => {
+  const dispatch = useAppDispatch();
+
   const navigateToAlbum = () => {
     router.push({
       pathname: "album",
@@ -17,6 +21,10 @@ const AlbumTile = ({ album }: Props) => {
         albumId: album.id,
       },
     });
+  };
+
+  const handleDeleteAlbum = (id: number) => {
+    dispatch(deleteAlbum(id));
   };
 
   return (
@@ -28,7 +36,11 @@ const AlbumTile = ({ album }: Props) => {
       >
         <Text style={styles.albumText}>{normalizeText(album.title)} </Text>
       </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.5} style={styles.deleteButton}>
+      <TouchableOpacity
+        onPress={() => handleDeleteAlbum(album.id)}
+        activeOpacity={0.5}
+        style={styles.deleteButton}
+      >
         <Ionicons name="trash-bin-outline" color={"red"} size={20} />
       </TouchableOpacity>
     </View>

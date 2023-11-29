@@ -8,6 +8,7 @@ import {
 import { User } from "../models/usersResponse";
 import { useGetAlbumsByUserIdQuery } from "../redux/services/userApi";
 import AlbumTile from "./AlbumTile";
+import { useAppSelector } from "../redux/hooks";
 
 interface Props {
   user: User;
@@ -16,10 +17,12 @@ interface Props {
 const UserTile = ({ user }: Props) => {
   const {
     data: albums,
-    isLoading,
-    isFetching,
+    // isLoading,
+    // isFetching,
     error,
   } = useGetAlbumsByUserIdQuery(user.id);
+
+  const { deletedAlbums } = useAppSelector((state) => state.deletedAlbums);
 
   if (error) return <Text> Couldn't get albums from user {user.name} </Text>;
 
@@ -29,8 +32,10 @@ const UserTile = ({ user }: Props) => {
       <Text style={{ color: "orange" }}>{user.username} </Text>
 
       <FlatList
-        data={albums}
-        renderItem={({ item }) => <AlbumTile album={item} />}
+        data={albums?.filter((album) => !deletedAlbums.includes(album.id))}
+        renderItem={({ item }) => {
+          return <AlbumTile album={item} />;
+        }}
         ItemSeparatorComponent={() => (
           <View style={{ height: 1, backgroundColor: "#edebeb" }} />
         )}

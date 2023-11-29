@@ -1,11 +1,6 @@
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import {
-  SafeAreaView,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { SafeAreaView, TouchableOpacity, View, Text } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   useGetAllPhotosQuery,
@@ -41,6 +36,8 @@ const AlbumPage = () => {
 
   if (albumLoading || albumFetching || allLoading || allFetching)
     return <LoadingPageIndicator />;
+
+  if (albumError || allError) return <Text>Error while loading photos</Text>;
 
   return (
     <SafeAreaView>
