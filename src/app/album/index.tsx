@@ -57,9 +57,9 @@ const AlbumPage = () => {
       />
       <View>
         {showAll ? (
-          <PhotosListView photos={allPhotos || []} />
+          <PhotosListView key='All' photos={allPhotos || []} />
         ) : (
-          <PhotosListView photos={photos || []} />
+          <PhotosListView key='Album' photos={photos || []} />
         )}
       </View>
     </SafeAreaView>

@@ -12,7 +12,12 @@ export default function Layout() {
             title: "Users",
           }}
         />
-        <Stack.Screen name="album/index" />
+        <Stack.Screen
+          name="album/index"
+          options={{
+            title: "Album",
+          }}
+        />
       </Stack>
     </Provider>
   );

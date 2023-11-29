@@ -33,9 +33,7 @@ const UserTile = ({ user }: Props) => {
 
       <FlatList
         data={albums?.filter((album) => !deletedAlbums.includes(album.id))}
-        renderItem={({ item }) => {
-          return <AlbumTile album={item} />;
-        }}
+        renderItem={({ item }) => <AlbumTile album={item} />}
         ItemSeparatorComponent={() => (
           <View style={{ height: 1, backgroundColor: "#edebeb" }} />
         )}

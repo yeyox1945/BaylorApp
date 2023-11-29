@@ -8,7 +8,9 @@ export const store = configureStore({
     deletedAlbums: deletedSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(usersApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(usersApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

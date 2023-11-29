@@ -17,10 +17,12 @@ const PhotosListView = ({ photos }: Props) => {
   return (
     <View>
       <FlatList
+
         data={photos}
         renderItem={({ item }) => (
           <Image
-            source={{ uri: item.url }}
+            // defaultSource={}
+            source={{ uri: windowWidth > 768 ? item.url : item.thumbnailUrl }}
             style={{
               ...styles.photoImage,
               height: windowWidth / 3,
